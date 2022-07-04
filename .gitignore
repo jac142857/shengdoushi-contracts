@@ -1,0 +1,8 @@
+.idea
+.env*
+artifacts/
+cache/
+crytic-export/
+node_modules/
+config.json
+data/ContractList.json
