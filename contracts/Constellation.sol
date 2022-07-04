@@ -69,7 +69,7 @@ contract Constellation is ERC721Enumerable, Ownable, ReentrancyGuard {
 
         require(_tokenId > 0, "Exceeded the minimum number of mint");
 
-        require(_tokenId < max, "Exceeded the maximum number of mint");
+        require(_tokenId < max + 1, "Exceeded the maximum number of mint");
 
         require(getTokenIdHash(_tokenId) == hash, "TokenId is invalid");
 

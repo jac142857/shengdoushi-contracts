@@ -86,7 +86,7 @@ contract Pope is ERC721Enumerable, Ownable, ReentrancyGuard {
 
         require(GSSToken != address(0), "GSSToken address cannot be empty");
 
-        require(_tokenIds.current() < max, "Exceeded the maximum number of mint");
+        require(_tokenIds.current() < max + 1, "Exceeded the maximum number of mint");
 
         uint256 _price = mintPrice();
 
