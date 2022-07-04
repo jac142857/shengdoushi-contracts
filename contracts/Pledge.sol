@@ -72,8 +72,8 @@ contract Pledge is Ownable, ReentrancyGuard {
     mapping(address => UserInfo) public userInfo;
 
     event Update(uint256 lastRewardBlock, uint256 tokenSupply, uint256 tokenPerShare);
-    event Deposit(address indexed user, uint256 amount, uint256 grade);
-    event Withdraw(address indexed user, uint256 amount, uint256 grade, uint256 lpAmount, uint256 uAmount, uint256 pending);
+    event Deposit(address indexed user, uint256 amount, uint256 grade, uint256 lpAmount, uint256 uAmount, uint256 timestamp);
+    event Withdraw(address indexed user, uint256 amount, uint256 grade, uint256 lpAmount, uint256 uAmount, uint256 pending, uint256 timestamp);
     event SetAllocReward(uint256 amount);
     event SuperiorReward(address indexed user, address indexed superior, uint256 level, uint256 amount);
 
@@ -157,7 +157,7 @@ contract Pledge is Ownable, ReentrancyGuard {
             PopeFeeDividend(PopeFeeDividendToken).deposit(msg.sender);
         }
 
-        emit Deposit(msg.sender, _amount, _grade);
+        emit Deposit(msg.sender, _amount, _grade, _lp, _amount - _lpAmount, block.timestamp);
     }
 
     /// @notice Withdraw LP tokens.
@@ -222,7 +222,7 @@ contract Pledge is Ownable, ReentrancyGuard {
             PopeFeeDividend(PopeFeeDividendToken).withdraw(msg.sender);
         }
 
-        emit Withdraw(msg.sender, _amount, grade, _lpAmount, _uAmount, pending);
+        emit Withdraw(msg.sender, _amount, grade, _lpAmount, _uAmount, pending, block.timestamp);
     }
 
     function setAllocReward(uint256 _allocReward) external onlyOwner {
