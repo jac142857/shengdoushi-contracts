@@ -65,6 +65,18 @@ contract Constellation is ERC721Enumerable, Ownable, ReentrancyGuard {
         baseURI = newBaseURI;
     }
 
+    function getList(address _addr) public view returns (uint256[]memory idArr){
+        uint256 startIndex = 0;
+        uint256 endIndex = balanceOf(_addr);
+        idArr = new uint256[](endIndex);
+        uint index;
+        for (; startIndex <= endIndex; startIndex++) {
+            uint256 nftId = tokenOfOwnerByIndex(_addr, startIndex);
+            idArr[index] = nftId;
+            index++;
+        }
+    }
+
     function mint(address recipient, uint256 _tokenId, bytes32 hash, bytes memory signature) external returns (uint256){
 
         require(_tokenId > 0, "Exceeded the minimum number of mint");

@@ -82,6 +82,18 @@ contract Pope is ERC721Enumerable, Ownable, ReentrancyGuard {
         return amounts[1];
     }
 
+    function getList(address _addr) public view returns (uint256[]memory idArr){
+        uint256 startIndex = 0;
+        uint256 endIndex = balanceOf(_addr);
+        idArr = new uint256[](endIndex);
+        uint index;
+        for (; startIndex <= endIndex; startIndex++) {
+            uint256 nftId = tokenOfOwnerByIndex(_addr, startIndex);
+            idArr[index] = nftId;
+            index++;
+        }
+    }
+
     function mint(address recipient, uint256[12] memory _ids) external returns (uint256){
 
         require(GSSToken != address(0), "GSSToken address cannot be empty");
